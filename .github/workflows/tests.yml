@@ -1,0 +1,26 @@
+name: tests
+
+on:
+  push:
+     branches: [main]
+     tags: v*
+     pull_request:
+
+jobs:
+  tests:
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: install pytest
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install pytest
+
+      - name: run tests
+        run: |
+          .venv/bin/pytest test_calculator.py
+
